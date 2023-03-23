@@ -33,3 +33,5 @@ FE/.env.production.local
 
 # vercel
 FE/.vercel
+
+.DS_Store
