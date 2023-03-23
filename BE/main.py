@@ -1,4 +1,5 @@
 
+from typing import List
 import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -53,9 +54,6 @@ async def process_image(image_request: ImageRequest):
             "surname": image_request.surname,
             "numbers": image_request.numbers,
             "processed_image": processed_image}
-
-
-
 
 
 
