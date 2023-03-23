@@ -24,7 +24,8 @@ export default function Home() {
           'Content-Type': 'application/json'
         }
       })
-      console.log(result.data)
+      console.log(result.data.processed_image)
+      setResImage(result.data.processed_image)
     }
     catch(e){
       console.log(e)
