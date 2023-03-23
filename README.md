@@ -1,4 +1,4 @@
-# Install jenkins, docker, docker-compose, and git 
+# Install jenkins, docker, docker-compose
 
 ### 1. Open the install_git_docker_docker_compose.sh file :
 
@@ -74,3 +74,44 @@ chmod +x install_git_docker_dockercompose.sh
 sudo usermod -aG docker $USER
 sudo groupadd docker
 ```
+
+# Install FE/BE to instances
+
+## 7. go to BE
+
+```
+cd softtool-docker/BE
+```
+
+## 8. build BE
+
+```
+docker build -t be .
+```
+
+## 9. run BE
+
+```
+docker run -p 8088:80 be
+```
+
+## 10. go to FE
+
+```
+cd softtool-docker/FE
+```
+
+
+## 11. build FE
+
+```
+docker build -t fe .
+```
+
+## 12. run FE
+
+```
+docker run -p 3000:80 fe
+```
+
+dont forget to setting inbound rule to port 3000 and 8088 as TCP
