@@ -5,9 +5,14 @@ import react, { useState } from 'react'
 import { headers } from '../next.config'
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
+export default function Home({host}) {
+  const hostname = host.substring(0, host.indexOf(":"))
+  const [name, setName] = useState('')
+  const [surname, setSurname] = useState('')
+  const [numbers, setNumbers] = useState([])
   const [image, setImage] = useState(null)
   const [resImage, setResImage] = useState(null)
+  const [data, setData] = useState(null)
   const handleChange = (event) => {
     let input = document.getElementById('input')
     var fReader = new FileReader()
@@ -18,13 +23,14 @@ export default function Home() {
     } 
   }
   const sendImage = async () => {
+    let sendNumber = numbers.split(" ")
     try {
-      const result = await axios.post('http://107.20.73.175:8088/process-image', {image: image, name: "KPUN", surname: "EIEI", numbers: [1,2]}, {
+      const result = await axios.post(`http://${hostname}:8088/process-image`, {image: image, name: name, surname: surname, numbers: sendNumber}, {
         headers: {
           'Content-Type': 'application/json'
         }
       })
-      console.log(result.data.processed_image)
+      setData(result.data)
       setResImage(result.data.processed_image)
     }
     catch(e){
@@ -33,21 +39,43 @@ export default function Home() {
   }
   return (
     <div className={styles.container}>
-      <div>
+      <h1 style={{textAlign: "center", color: "red"}}>Dev tool week9</h1>
+      <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
         <input id='input' type='file' onChange={() => handleChange()}/>
+        <input type={"text"} onChange={(e) => setName(e.target.value)} placeholder={"input name"} />
+        <input type={"text"} onChange={(e) => setSurname(e.target.value)} placeholder={"input surname"} />
+        <input type={"text"} onChange={(e) => setNumbers(e.target.value)} placeholder={"input number (1 2)"} />
+        <button onClick={() => sendImage()}>Send</button>
       </div>
-      <button onClick={() => sendImage()}>Send</button>
-      
       { image && (
-        <div>
-          <Image id='image'width={300} height={300} src={image} alt='eiei' style={{objectFit: 'cover'}}/>
+        <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+          <Image id='image'width={600} height={400} src={image} alt='eiei' style={{objectFit: 'contain'}}/>
         </div>
       )}
-      <div>
+      <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
         { resImage && (
-          <Image id='image2' width={300} height={300} src={resImage} alt='hello'/>
+          <Image id='image2' width={600} height={400} src={resImage} alt='hello' style={{objectFit: 'contain'}}/>
         )}
       </div>
+      {
+        data && (
+          <div>
+            <div>
+              { data.name + " " + data.surname}
+            </div>
+            <ul>
+            {
+              data.numbers.map((item) => (
+                <li>
+                  { item }
+                </li>
+              ))
+            }
+            </ul>
+          </div>
+        )}
     </div>
   )
 }
+
+export const getServerSideProps = async context => ({ props: {host: context.req.headers.host || null}})
