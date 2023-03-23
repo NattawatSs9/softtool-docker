@@ -13,6 +13,7 @@ export default function Home({host}) {
   const [image, setImage] = useState(null)
   const [resImage, setResImage] = useState(null)
   const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(false)
   const handleChange = (event) => {
     let input = document.getElementById('input')
     var fReader = new FileReader()
@@ -25,6 +26,7 @@ export default function Home({host}) {
   const sendImage = async () => {
     let sendNumber = numbers.split(" ")
     try {
+      setLoading(true)
       const result = await axios.post(`http://${hostname}:8088/process-image`, {image: image, name: name, surname: surname, numbers: sendNumber}, {
         headers: {
           'Content-Type': 'application/json'
@@ -32,6 +34,7 @@ export default function Home({host}) {
       })
       setData(result.data)
       setResImage(result.data.processed_image)
+      setLoading(false)
     }
     catch(e){
       console.log(e)
@@ -65,8 +68,8 @@ export default function Home({host}) {
             </div>
             <ul>
             {
-              data.numbers.map((item) => (
-                <li>
+              data.numbers.map((item, index) => (
+                <li key={index}>
                   { item }
                 </li>
               ))
@@ -74,6 +77,15 @@ export default function Home({host}) {
             </ul>
           </div>
         )}
+        {
+          loading && (
+            <div style={{position: "absolute", width: "100%", height: "100%", backgroundColor: "rgba(0,0,0, 0.5)", top: 0, left: 0}}>
+              <div style={{position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", fontSize: "50px"}}>
+                Loading
+              </div>
+            </div>
+          )
+        }
     </div>
   )
 }
