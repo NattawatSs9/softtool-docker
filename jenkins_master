@@ -1,5 +1,11 @@
 pipeline {
     agent any
+
+    environment {
+        DOCKER_HUB_REGISTRY = 'https://index.docker.io/v1/'
+        DOCKER_HUB_USERNAME = credentials('nattawat2345')
+        DOCKER_HUB_PASSWORD = credentials('dckr_pat_EtOOiCJ1dedZ9GSJ1E8buzC15_A')
+    }
     stages {
         stage('verify') {
             steps {
@@ -22,12 +28,8 @@ pipeline {
             steps {
                 sh 'docker info > /dev/null 2>&1'
                 script {
-                    def returnCode = sh returnStatus: true, script: 'docker info > /dev/null 2>&1'
-                    if (returnCode == 0) {
-                        echo 'user already login with docker'
-                    } else {
-                        sh 'docker login -u nattawat2345 --password-stdin dckr_pat_qDRxeTRGUpzU_65KF4W-gokKB4U'
-
+                    withDockerRegistry([credentialsId: 'docker-hub-credentials', url: DOCKER_HUB_REGISTRY]) {
+                        sh "docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}"
                     }
                 }
             }
