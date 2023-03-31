@@ -3,20 +3,11 @@ pipeline {
     agent any
 
     stages {
-        stage('verify tooling') {
-            steps {
-                sh '''
-                    docker info
-                    docker version
-                    docker compose version
-                    curl --version
-                    jq --version
-               '''
-            }
-        }
         stage('Build docker') {
             steps {
-                sh 'docker-compose build'
+                dir('softtool-docker') { // change directory to Lab_docker_Jenkins
+                    sh 'docker-compose up -d'
+                }
             }
         }
         stage('Push to docker hub') {
