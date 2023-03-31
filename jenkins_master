@@ -24,9 +24,7 @@ pipeline {
             steps {
                 sh 'docker info > /dev/null 2>&1'
                 script {
-                    withDockerRegistry([credentialsId: 'nattawat2345', url: 'https://index.docker.io/v1/']) {
-                        sh "docker login -u nattawat2345 -p dckr_pat_EtOOiCJ1dedZ9GSJ1E8buzC15_A"
-                    }
+                    sh 'docker login -u nattawat2345 -p dckr_pat_EtOOiCJ1dedZ9GSJ1E8buzC15_A'
                 }
             }
         }
