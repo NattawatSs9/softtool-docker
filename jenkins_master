@@ -1,5 +1,9 @@
 pipeline {
     agent any
+        environment {
+            DOCKER_USERNAME = 'nattawat2345'
+            DOCKER_PASSWORD = credentials('dckr_pat_qDRxeTRGUpzU_65KF4W-gokKB4U')
+        }
     stages {
         stage('verify') {
             steps {
@@ -9,6 +13,19 @@ pipeline {
                     docker compose version
                     curl --version
                 '''
+            }
+        }
+        stage('login docker') {
+            steps {
+                sh 'docker info > /dev/null 2>&1'
+                script {
+                    if (returnStatus == 0) {
+                        echo 'user already login with docker'
+                    } else {
+                        sh "docker login -u $DOCKER_USERNAME --password $DOCKER_PASSWORD"
+
+                    }
+                }
             }
         }
         stage('Build docker') {
