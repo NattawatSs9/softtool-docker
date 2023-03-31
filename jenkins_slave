@@ -18,10 +18,11 @@ pipeline {
 
             }
         }
-        stage('docker ps') {
+        stage('docker run image') {
             steps {
                 script {
-                    sh 'docker ps'
+                    sh 'docker run nattawat2345/kpun-be:lastest'
+                    sh 'docker run nattawat2345/kpun-fe:lastest'
                 }
             }
         }
