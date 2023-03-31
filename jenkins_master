@@ -3,6 +3,9 @@ pipeline {
     agent any
 
     stages {
+        state('dir') {
+            dir(path: 'softtool-docker')
+        }
         stage('Build docker') {
             steps {
                 sh 'docker-compose build'
