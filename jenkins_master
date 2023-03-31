@@ -1,13 +1,15 @@
-/* groovylint-disable-next-line CompileStatic */
 pipeline {
     agent any
-
     stages {
-        stage('Verify') {
+        stage('verify') {
             steps {
-                dir('softtool-docker') {
-                    sh 'sudo usermod -aG docker $USER'
-                }
+                sh '''
+                    docker info
+                    docker version
+                    docker compose version
+                    curl --version
+                    jq --version
+                '''
             }
         }
         stage('Build docker') {
