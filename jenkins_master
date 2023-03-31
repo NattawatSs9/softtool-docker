@@ -42,7 +42,8 @@ pipeline {
         stage('Trigger Slave') {
             steps {
                 script {
-                    build job: 'docker-compose-with-jenkins-slave'
+                    build job: 'docker-compose-with-jenkins-slave-be'
+                    build job: 'docker-compose-with-jenkins-slave-fe'
                 }
             }
         }

@@ -1,0 +1,28 @@
+pipeline {
+    agent any 
+    
+    stages{
+        stage('login docker') {
+            steps {
+                script {
+                    sh 'docker login -u nattawat2345 -p dckr_pat_EtOOiCJ1dedZ9GSJ1E8buzC15_A'
+                }
+            }
+        }
+        stage('docker pull image') {
+            steps {
+                script {
+                    sh 'docker pull nattawat2345/kpun-be:lastest'
+                }
+
+            }
+        }
+        stage('docker run image') {
+            steps {
+                script {
+                    sh 'docker run -d nattawat2345/kpun-be:lastest'
+                }
+            }
+        }
+    }
+}

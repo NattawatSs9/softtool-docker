@@ -12,7 +12,6 @@ pipeline {
         stage('docker pull image') {
             steps {
                 script {
-                    sh 'docker pull nattawat2345/kpun-be:lastest'
                     sh 'docker pull nattawat2345/kpun-fe:lastest'
                 }
 
@@ -21,7 +20,6 @@ pipeline {
         stage('docker run image') {
             steps {
                 script {
-                    sh 'docker run -d nattawat2345/kpun-be:lastest'
                     sh 'docker run -d nattawat2345/kpun-fe:lastest'
                 }
             }
