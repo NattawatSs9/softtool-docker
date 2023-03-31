@@ -8,14 +8,13 @@ pipeline {
                     docker version
                     docker compose version
                     curl --version
-                    jq --version
                 '''
             }
         }
         stage('Build docker') {
             steps {
                 dir('softtool-docker') { // change directory to Lab_docker_Jenkins
-                    sh 'docker-compose up -d'
+                    sh 'docker-compose build'
                 }
             }
         }
