@@ -3,9 +3,15 @@ pipeline {
     agent any
 
     stages {
-        stage('dir') {
+        stage('verify tooling') {
             steps {
-                dir(path: 'softtool-docker')
+                sh '''
+                    docker info
+                    docker version
+                    docker compose version
+                    curl --version
+                    jq --version
+               '''
             }
         }
         stage('Build docker') {
