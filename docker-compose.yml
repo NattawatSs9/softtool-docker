@@ -2,13 +2,13 @@ version: "3"
 
 services:
   devtool-be:
-    image: nattawat2345/kpun-be:1.0
+    image: nattawat2345/kpun-be:lastest
     ports:
       - 8088:80
     build: ./BE
 
   devtool-fe:
-    image: nattawat2345/kpun-fe:1.0
+    image: nattawat2345/kpun-fe:lastest
     ports:
       - 3000:80
     build: ./FE

@@ -11,6 +11,13 @@ pipeline {
                 '''
             }
         }
+        stage('logout') {
+            steps {
+                script {
+                    sh 'docker logout'
+                }
+            }
+        }
         stage('login docker') {
             steps {
                 sh 'docker info > /dev/null 2>&1'
