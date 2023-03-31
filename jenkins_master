@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     stages {
-        state('dir') {
+        stage('dir') {
             dir(path: 'softtool-docker')
         }
         stage('Build docker') {
