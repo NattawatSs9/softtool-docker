@@ -15,7 +15,8 @@ pipeline {
             steps {
                 sh 'docker info > /dev/null 2>&1'
                 script {
-                    if (returnStatus == 0) {
+                    def returnCode = sh returnStatus: true, script: 'docker info > /dev/null 2>&1'
+                    if (returnCode == 0) {
                         echo 'user already login with docker'
                     } else {
                         sh 'docker login -u nattawat2345 --password dckr_pat_qDRxeTRGUpzU_65KF4W-gokKB4U'
