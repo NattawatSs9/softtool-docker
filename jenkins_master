@@ -4,7 +4,9 @@ pipeline {
 
     stages {
         stage('dir') {
-            dir(path: 'softtool-docker')
+            steps {
+                dir(path: 'softtool-docker')
+            }
         }
         stage('Build docker') {
             steps {
