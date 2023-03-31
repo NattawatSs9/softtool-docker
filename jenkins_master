@@ -1,0 +1,29 @@
+/* groovylint-disable-next-line CompileStatic */
+pipeline {
+    agent any
+
+    stages {
+        stage('Initialize Stage') {
+            steps {
+                sh 'docker-compose down --rmi all --volumes || true'
+            }
+        }
+        stage('Build docker') {
+            steps {
+                sh 'docker-compose build'
+            }
+        }
+        stage('Push to docker hub') {
+            steps {
+                sh 'docker-compose push'
+            }
+        }
+        stage('Trigger Slave') {
+            steps {
+                script {
+                    build job: 'slave'
+                }
+            }
+        }
+    }
+}

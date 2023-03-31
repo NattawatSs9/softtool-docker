@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  devtool-be:
+    ports:
+      - 8088:80
+    build: ./BE
+
+  devtool-fe:
+    ports:
+      - 3000:80
+    build: ./FE
