@@ -3,6 +3,13 @@ pipeline {
     agent any
 
     stages {
+        stage('Verify') {
+            steps {
+                dir('softtool-docker') {
+                    sh 'sudo usermod -aG docker $USER'
+                }
+            }
+        }
         stage('Build docker') {
             steps {
                 dir('softtool-docker') { // change directory to Lab_docker_Jenkins
