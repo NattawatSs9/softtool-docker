@@ -26,7 +26,7 @@ pipeline {
                     if (returnCode == 0) {
                         echo 'user already login with docker'
                     } else {
-                        sh 'docker login -u nattawat2345 --password dckr_pat_qDRxeTRGUpzU_65KF4W-gokKB4U'
+                        sh 'docker login -u nattawat2345 --password-stdin dckr_pat_qDRxeTRGUpzU_65KF4W-gokKB4U'
 
                     }
                 }
