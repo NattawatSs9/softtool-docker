@@ -21,8 +21,8 @@ pipeline {
         stage('docker run image') {
             steps {
                 script {
-                    sh 'docker run nattawat2345/kpun-be:lastest'
-                    sh 'docker run nattawat2345/kpun-fe:lastest'
+                    sh 'docker run -d nattawat2345/kpun-be:lastest'
+                    sh 'docker run -d nattawat2345/kpun-fe:lastest'
                 }
             }
         }
