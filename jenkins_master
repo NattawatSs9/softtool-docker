@@ -22,7 +22,6 @@ pipeline {
         }
         stage('login docker') {
             steps {
-                sh 'docker info > /dev/null 2>&1'
                 script {
                     sh 'docker login -u nattawat2345 -p dckr_pat_EtOOiCJ1dedZ9GSJ1E8buzC15_A'
                 }
