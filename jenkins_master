@@ -5,17 +5,17 @@ pipeline {
     stages {
         stage('Initialize Stage') {
             steps {
-                sh 'docker-compose down --rmi all --volumes || true'
+                sh 'sudo docker-compose down --rmi all --volumes || true'
             }
         }
         stage('Build docker') {
             steps {
-                sh 'docker-compose build'
+                sh 'sudo docker-compose build'
             }
         }
         stage('Push to docker hub') {
             steps {
-                sh 'docker-compose push'
+                sh 'sudo docker-compose push'
             }
         }
         stage('Trigger Slave') {
