@@ -1,10 +1,11 @@
 pipeline {
-    agent any
-    stages {
-        stage('Deploy docker') {
+    agent any 
+    
+    stages{
+        stage('docker pull image') {
             steps {
-                sh "docker-compose up"
-                
+                sh 'docker pull kpun-be:lastest'
+                sh 'docker pull kpun-fe:lastest'
             }
         }
     }
