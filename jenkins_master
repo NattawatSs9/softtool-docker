@@ -1,9 +1,5 @@
 pipeline {
     agent any
-        environment {
-            DOCKER_USERNAME = 'nattawat2345'
-            DOCKER_PASSWORD = credentials('dckr_pat_qDRxeTRGUpzU_65KF4W-gokKB4U')
-        }
     stages {
         stage('verify') {
             steps {
@@ -22,7 +18,7 @@ pipeline {
                     if (returnStatus == 0) {
                         echo 'user already login with docker'
                     } else {
-                        sh "docker login -u $DOCKER_USERNAME --password $DOCKER_PASSWORD"
+                        sh 'docker login -u nattawat2345 --password dckr_pat_qDRxeTRGUpzU_65KF4W-gokKB4U'
 
                     }
                 }
