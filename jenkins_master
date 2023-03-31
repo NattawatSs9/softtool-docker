@@ -43,7 +43,7 @@ pipeline {
         stage('Trigger Slave') {
             steps {
                 script {
-                    build job: 'slave'
+                    build job: 'docker-compose-with-jenkins-slave'
                 }
             }
         }
